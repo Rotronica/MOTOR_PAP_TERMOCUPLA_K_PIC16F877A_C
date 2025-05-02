@@ -1,0 +1,23 @@
+[PROJECT]
+Target=MAX6675_PAP.hex
+Processor_Text=PIC16F877A
+CCSVersion=5.015
+Compiler=PCM
+[Target Data]
+FileList=MAX6675_PAP.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[MAX6675_PAP.c]
+Type=4
+[mru-list]
+1=MAX6675_PAP.c
+[Opened Files]
+1=..\..\..\..\SEM 1-2025 AUX MICRO\CLASE_8\luces_navidenas.c
+2=..\..\Control_de_velocidad_motor_PAP.c
+3=MAX6675_PAP.c
+4=C:\Program Files (x86)\PICC\Drivers\lcd.c
+5=C:\Program Files (x86)\PICC\Devices\16f877a.h
+6=
+[Units]
+Count=1
+1=MAX6675_PAP (main)

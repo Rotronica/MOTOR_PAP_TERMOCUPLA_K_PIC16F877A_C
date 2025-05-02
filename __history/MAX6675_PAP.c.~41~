@@ -1,0 +1,74 @@
+/*
+ * Autor: Rodrigo C.C
+ * El siguiente programa realiza el control de temperatura de una hornilla electrica
+ * utilizando una termocupla tipo k, cuando la temperatura llega a los 45 Grados el 
+ * motor gira en sentido horario. Cuando la temperatura esta por debajo de los 35 grados 
+ * el motor gira en sentido antihorario.
+ * La tecnica de control usado es 'control on-off'
+ *
+ * Observaciones: Para un buen control de  temperatura utilizar 'control PID' ademas controlar los grados del
+ * motor PAP para mayor precision.
+ */
+
+#include <16f877a.h>
+#use DELAY(CLOCK=4M)
+#fuses XT,NOPROTECT,NOWDT,NOBROWNOUT,NOPUT,NOLVP
+#define TC_CLK     PIN_C3  
+#define TC_CS      PIN_C0
+#define TC_DATA    PIN_C4
+#define LCD_ENABLE_PIN  PIN_D0                                    ////
+#define LCD_RS_PIN      PIN_D1                                    ////
+#define LCD_RW_PIN      PIN_D2                                    ////
+#define LCD_DATA4       PIN_D4                                    ////
+#define LCD_DATA5       PIN_D5                                    ////
+#define LCD_DATA6       PIN_D6                                    ////
+#define LCD_DATA7       PIN_D7
+#include <lcd.c>
+#include "max6675.c"    //Libreria para el uso del modulo 
+#include <stdint.h>     //Libreria para hacer uso de los tipos de datos uint8_t, uint16_t, etc.
+#define PERIODO_FREC_PAP  35 //Periodo de la frecuencia de motor PAP A 35ms
+//Vector con dimension de 4 que contiene la secuencia de paso doble
+static const uint8_t paso_doble[4] ={0b1100, //Secuencia 1
+                                     0b0110, //Secuencia 2
+                                     0b0011, //Secuencia 3
+                                     0b1001};//Secuencia 4
+//Funcion para el giro antihorario del motor PAP
+void giro_antiH(void){
+   for(int8_t j = 3; j>=0; j--){    //Bucle for para decrementar la variable
+      output_b(paso_doble[j]);        //Toma la secuencia del vector y lo refleja al puertos B
+      delay_ms(PERIODO_FREC_PAP);   //Retardo para la velocidad del motor PAP
+   }
+}
+//Funcion para el giro horario del motor PAP                                    
+void giro_horario(void){
+   for(uint8_t i =0; i<4; i++){ //Bucle for para tomar los datos de nuestro vector
+      output_b(paso_doble[i]);   //Toma la secuencia del vector y lo refleja al puertos B
+      delay_ms(PERIODO_FREC_PAP);//Retardo para la velocidad del motor PAP
+   }
+}
+//Funcion para configurar registros como entradas o salidas
+void setup(void){
+   set_tris_b(0x00); //Coloca todo el puerto B como salida
+   output_b(0x00);   //Limpia el puertos B
+}
+void main() 
+{ 
+   float Temperatura;   //Variable global
+   lcd_init();          //Inicializa LCD
+   lcd_putc("\f");      //Limpia pantalla LCD
+   lcd_gotoxy(1,1);     //Posiciona el mensaje
+   lcd_putc("Temperatura");//Mensaje a visualizar
+   while(true){ 
+      Temperatura = do_everything();   //Lee los datos del sensor ya en grados centigrados
+      lcd_gotoxy(1,2);                 //Posiciona el mensaje
+      printf(lcd_putc, "T:%3.2fC",Temperatura); // Visualiza la Temperatura en LCD
+      //Verifica si la temperatura es mayor a 40 grados
+      if(Temperatura > 40){
+         giro_horario();   //El motor Gira en sentido horario
+      }
+      //Verifica si la temperatura es menor a 35 grados
+      if(Temperatura < 35){
+         giro_antiH();     //El motor gira en sentido antihorario
+      }
+   } 
+} 

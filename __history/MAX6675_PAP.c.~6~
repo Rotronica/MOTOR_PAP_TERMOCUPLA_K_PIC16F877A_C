@@ -1,0 +1,30 @@
+#include <16f887.h>
+#use DELAY(CLOCK=4000000)
+#fuses XT,NOPROTECT,NOWDT,NOBROWNOUT,NOPUT,NOLVP
+#use rs232(baud=9600, xmit=pin_c6, rcv=pin_c7, bits=8)
+#define TC_CLK     PIN_C3  
+#define TC_CS      PIN_C0
+#define TC_DATA    PIN_C4
+#define LCD_ENABLE_PIN  PIN_D0                                    ////
+#define LCD_RS_PIN      PIN_D1                                    ////
+#define LCD_RW_PIN      PIN_D2                                    ////
+#define LCD_DATA4       PIN_D4                                    ////
+#define LCD_DATA5       PIN_D5                                    ////
+#define LCD_DATA6       PIN_D6                                    ////
+#define LCD_DATA7       PIN_D7
+#include <lcd.c>
+#include "max6675.c"
+
+void main() 
+{ 
+   char msg[32]; 
+   delay_ms(50);      //allow oscillator to stabilise
+   lcd_init();
+   lcd_putc("\f");
+   while(1){ 
+      delay_ms(1000); 
+      sprintf(msg,"%3.2f%cC\r\n",do_everything(),0xB0); 
+      //sprintf(msg,"%01.2f%cC\r\n",do_everything(),0XB0); 
+      printf("%s",msg); 
+   } 
+} 

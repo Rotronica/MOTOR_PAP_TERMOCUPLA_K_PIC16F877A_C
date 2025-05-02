@@ -1,0 +1,49 @@
+#include <16f877a.h>
+#use DELAY(CLOCK=4000000)
+#fuses XT,NOPROTECT,NOWDT,NOBROWNOUT,NOPUT,NOLVP
+#define TC_CLK     PIN_C3  
+#define TC_CS      PIN_C0
+#define TC_DATA    PIN_C4
+#define LCD_ENABLE_PIN  PIN_D0                                    ////
+#define LCD_RS_PIN      PIN_D1                                    ////
+#define LCD_RW_PIN      PIN_D2                                    ////
+#define LCD_DATA4       PIN_D4                                    ////
+#define LCD_DATA5       PIN_D5                                    ////
+#define LCD_DATA6       PIN_D6                                    ////
+#define LCD_DATA7       PIN_D7
+#include <lcd.c>
+#include "max6675.c"
+#include <stdint.h>
+#define PERIODO_FREC_PAP  200    //Periodo de la frecuencia de motor PAP A 35ms
+#byte PORTB = 0X06
+static const uint8_t paso_doble[4] ={0b1100,
+                                     0b0110,
+                                     0b0011,
+                                     0b1001};
+void giro_horario(void){
+   for(uint8_t i =0; i<4; i++){
+      output_b(paso_doble[i]);
+      delay_ms(PERIODO_FREC_PAP);
+   }
+}
+void setup(void){
+   set_tris_b(0x00);
+   output_b(0x00);
+}
+void main() 
+{ 
+   float Temperatura;
+   delay_ms(50);      //allow oscillator to stabilise
+   lcd_init();
+   lcd_putc("\f");
+   lcd_gotoxy(1,1);
+   lcd_putc("Temperatura");
+   while(true){ 
+      Temperatura = do_everything();
+      lcd_gotoxy(1,2);
+      printf(lcd_putc, "T:%3.2fC",Temperatura);
+      //if(temperatura > 70){
+         giro_horario();
+      //}
+   } 
+} 
