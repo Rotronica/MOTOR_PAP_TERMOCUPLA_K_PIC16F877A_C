@@ -1,8 +1,7 @@
-D G "lcd_rw_tris" 2 129 "()  output_drive(LCD_RW_PIN)"
-D G "__PCM__" 2 137 ""5.015""
-D G "__DEVICE__" 2 137 "877"
-D G "__DATE__" 2 137 ""02-May-25""
-D G "__TIME__" 2 137 ""03:16:12"" "* Autor: Rodrigo C.C"
+D G "__PCM__" 0 0 ""5.015""
+D G "__DEVICE__" 0 0 ""
+D G "__DATE__" 0 0 ""02-May-25""
+D G "__TIME__" 0 0 ""03:27:11"" "* Autor: Rodrigo C.C"
 C G "" 0 1 1 "*"
 C G "" 0 1 1 "*"
 C G "" 0 1 1 "*"
@@ -304,7 +303,7 @@ f B "setup_adc" 1 362 "void(int32 mode)" `192
 f B "read_adc" 1 363 "int8()" `194 
 v L "mode" 1 364 "int8" `196 
 f G "read_adc" 1 364 "int8(int8 mode)" `195 
-f B "read_adc" 1 365 "int16()" `197 
+f G "read_adc" 1 365 "int16()" `197 
 v L "mode" 1 366 "int8" `199 
 f G "read_adc" 1 366 "int16(int8 mode)" `198 
 f B "adc_done" 1 367 "int8()" `200  "Constants used for SETUP_ADC() are:"
@@ -956,7 +955,7 @@ F G "setup" 0 52 "void()" `700
 C L "setup" 0 32 1 "FUNCTION"
 C L "setup" 0 32 1 "FUNCTION"
 F G "MAIN" 0 57 "void()" `701 
-V L "Temperatura" 0 58 "float" `702  "Variable global"
+V L "Temperatura" 0 58 "float" `702  "Variable local"
 C L "MAIN" 0 32 1 "FUNCTION"
 C L "MAIN" 0 32 1 "FUNCTION"
 C L "MAIN" 0 32 1 "FUNCTION"

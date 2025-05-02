@@ -1,4 +1,4 @@
-CCS PCM C Compiler, Version 5.015, 5967               02-May-25 03:16
+CCS PCM C Compiler, Version 5.015, 5967               02-May-25 03:27
 
                Filename:   E:\AUXILIAR\MICRO\LENGUAJE C\pic16f877a\LAB MICRO\MAX6675_PAP.lst
 
@@ -2507,7 +2507,7 @@ CCS PCM C Compiler, Version 5.015, 5967               02-May-25 03:16
 069D:  MOVWF  1C
 069E:  BCF    03.7
 .................... {  
-....................    float Temperatura;   //Variable global 
+....................    float Temperatura;   //Variable local 
 ....................    lcd_init();          //Inicializa LCD 
 069F:  BCF    03.5
 06A0:  GOTO   0E0

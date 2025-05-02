@@ -142,13 +142,13 @@ Project Directory:
     E:\AUXILIAR\MICRO\LENGUAJE C\pic16f877a\LAB MICRO\
 
 Project Files:
-    MAX6675_PAP.c                                           [02-May-25 03:16  CRC=EEED3197]
+    MAX6675_PAP.c                                           [02-May-25 03:27  CRC=92215152]
     C:\Program Files (x86)\PICC\Devices\16f877a.h           [12-Nov-13 17:35  CRC=81334808]
     C:\Program Files (x86)\PICC\Drivers\lcd.c               [19-Sep-13 18:38  CRC=D1A6378A]
     max6675.c                                               [01-May-25 23:55  CRC=B64BCB48]
     C:\Program Files (x86)\PICC\Drivers\stdint.h            [30-Dec-08 12:01  CRC=9F7F640F]
 
-Source signature=3711448F
+Source signature=DA45644A
 
 Units:
     MAX6675_PAP (main)

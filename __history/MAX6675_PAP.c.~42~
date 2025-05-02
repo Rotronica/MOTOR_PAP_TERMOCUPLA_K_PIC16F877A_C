@@ -55,7 +55,7 @@ void setup(void){
 }
 void main() 
 { 
-   float Temperatura;   //Variable local
+   float Temperatura;   //Variable global
    lcd_init();          //Inicializa LCD
    lcd_putc("\f");      //Limpia pantalla LCD
    lcd_gotoxy(1,1);     //Posiciona el mensaje
